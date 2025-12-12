@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b8x7y201w4v5"]
+
+[ext_resource type="Script" path="res://scripts/gameplay_scene.gd" id="1_gameplay"]
+[ext_resource type="Texture2D" uid="uid://d3x8q2y1w4v5" path="res://assets/pixel2d/Environment/Tilesets/Floors_Tiles.png" id="2_tiles"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_floors"]
+texture = ExtResource("2_tiles")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_dungeon"]
+tile_size = Vector2i(32, 32)
+sources/0 = SubResource("TileSetAtlasSource_floors")
+
+[node name="GameplayScene" type="Node2D"]
+script = ExtResource("1_gameplay")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -2000.0
+offset_top = -2000.0
+offset_right = 4000.0
+offset_bottom = 4000.0
+color = Color(0.07, 0.07, 0.1, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+scale = Vector2(2, 2)
+tile_set = SubResource("TileSet_dungeon")
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(576, 324)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 260.0
+offset_bottom = 46.0
+text = "Press ESC to return to Menu"

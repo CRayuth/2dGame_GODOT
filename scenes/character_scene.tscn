@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bjmmcfv3j8h6y" path="res://scripts/character_scene.gd" id="1_ss6tk"]
 [ext_resource type="Texture2D" uid="uid://cwo21rkfenh3u" path="res://images/background_character_selection.jpg" id="2_ewn66"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ss6tk"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fs386"]
 texture = ExtResource("2_ewn66")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fs386"]
@@ -18,14 +18,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ss6tk")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="character_chosen_background" type="Panel" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxTexture_ss6tk")
+theme_override_styles/panel = SubResource("StyleBoxTexture_fs386")
 
 [node name="TransitionOverlay" type="ColorRect" parent="."]
 visible = false

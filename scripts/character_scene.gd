@@ -180,7 +180,7 @@ func _on_bowman_button_pressed():
 func _on_start_game_button_pressed() -> void:
 	if not start_game_button.disabled:
 		print("Starting game with: ", GameManager.get_selected_character_name())
-		# transition_to_scene("res://scenes/gameplay_scene.tscn")
+		transition_to_scene("res://scenes/gameplay_scene.tscn")
 
 func _on_back_button_character_pressed():
 	transition_to_scene("res://scenes/main_menu.tscn")
