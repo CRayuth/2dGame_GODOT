@@ -1,0 +1,220 @@
+[gd_scene load_steps=8 format=3 uid="uid://cnw1xt8jh0mp5"]
+
+[ext_resource type="Texture2D" uid="uid://bywnpqujaf4qw" path="res://images/background.jpg" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://c41pcshor8tls" path="res://scripts/main_menu.gd" id="1_fu7sn"]
+[ext_resource type="FontFile" uid="uid://c328hr4u7s466" path="res://fonts/Pixel Game.otf" id="2_7vrkn"]
+[ext_resource type="Script" uid="uid://cgv4wddd5x62d" path="res://scripts/audio_control.gd" id="5_glbon"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_transition"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vrkn"]
+texture = ExtResource("1_06t4h")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_jix8l"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_glbon"]
+color = Color(0.7655548, 0.43391326, 0.11023792, 1)
+thickness = 6
+
+[node name="main_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fu7sn")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_7vrkn")
+
+[node name="MainButtons" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -151.25
+offset_top = -106.0
+offset_right = 151.25
+offset_bottom = 106.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 3
+
+[node name="new_game" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 25
+text = "New Game"
+
+[node name="continue_game" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 25
+text = "Continue"
+
+[node name="setting_game" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 25
+text = "Setting"
+
+[node name="exit_game" type="Button" parent="MainButtons"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 25
+text = "Exit
+"
+
+[node name="game_title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.19100001
+anchor_right = 0.5
+anchor_bottom = 0.19100001
+offset_left = -269.0
+offset_top = -50.768013
+offset_right = 270.0
+offset_bottom = 51.231987
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 10
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 100
+text = "Dungeon Quest"
+
+[node name="TransitionOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+z_index = 100
+
+[node name="Setting_Background" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -277.5
+offset_top = -141.5
+offset_right = 277.5
+offset_bottom = 141.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Setting_Name" type="Label" parent="Setting_Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.50100005
+anchor_top = 0.102000006
+anchor_right = 0.50100005
+anchor_bottom = 0.102000006
+offset_left = -42.555023
+offset_top = -15.366001
+offset_right = 42.444977
+offset_bottom = 15.633999
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 30
+text = "Setting"
+
+[node name="back" type="Button" parent="Setting_Background/Setting_Name"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.52400005
+anchor_top = 7.5160003
+anchor_right = 0.52400005
+anchor_bottom = 7.5160003
+offset_left = -94.54001
+offset_top = -16.996002
+offset_right = 94.45999
+offset_bottom = 17.003998
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="music_volume_label" type="Label" parent="Setting_Background/Setting_Name"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.19700001
+anchor_top = 0.34300002
+anchor_right = 0.19700001
+anchor_bottom = 0.34300002
+offset_left = -198.745
+offset_top = 61.367
+offset_right = -86.745
+offset_bottom = 84.367
+text = "Music Volume"
+
+[node name="MusicControl" type="HSlider" parent="Setting_Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.34100002
+anchor_right = 0.85
+anchor_bottom = 0.34100002
+offset_left = -107.49002
+offset_top = -24.003006
+offset_right = -39.25
+offset_bottom = 23.996994
+grow_horizontal = 2
+theme_override_styles/slider = SubResource("StyleBoxLine_jix8l")
+theme_override_styles/grabber_area = SubResource("StyleBoxLine_glbon")
+theme_override_styles/grabber_area_highlight = SubResource("StyleBoxLine_glbon")
+max_value = 1.0
+step = 0.05
+value = 1.0
+script = ExtResource("5_glbon")
+audio_bus_name = "Music"
+
+[node name="MusicMuteButton" type="Button" parent="Setting_Background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.90000004
+anchor_top = 0.37300003
+anchor_right = 0.90000004
+anchor_bottom = 0.37300003
+offset_left = -40.0
+offset_top = -20.05899
+offset_right = 39.99997
+offset_bottom = 19.94101
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_7vrkn")
+theme_override_font_sizes/font_size = 18
+text = "Mute"
+
+[connection signal="pressed" from="MainButtons/new_game" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainButtons/continue_game" to="." method="_on_continue_game_pressed"]
+[connection signal="pressed" from="MainButtons/setting_game" to="." method="_on_setting_game_pressed"]
+[connection signal="pressed" from="MainButtons/exit_game" to="." method="_on_exit_game_pressed"]
+[connection signal="pressed" from="Setting_Background/Setting_Name/back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="Setting_Background/MusicControl" to="Setting_Background/MusicControl" method="_on_value_changed"]
+[connection signal="pressed" from="Setting_Background/MusicMuteButton" to="." method="_on_music_mute_button_pressed"]

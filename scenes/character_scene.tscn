@@ -1,0 +1,87 @@
+[gd_scene load_steps=5 format=3 uid="uid://8ego1w17xrgf"]
+
+[ext_resource type="FontFile" uid="uid://c328hr4u7s466" path="res://fonts/Pixel Game.otf" id="1_ejn3r"]
+[ext_resource type="Script" uid="uid://bjmmcfv3j8h6y" path="res://scripts/character_scene.gd" id="1_ss6tk"]
+[ext_resource type="Texture2D" uid="uid://cwo21rkfenh3u" path="res://images/background_character_selection.jpg" id="2_ewn66"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ss6tk"]
+texture = ExtResource("2_ewn66")
+
+[node name="Character_Scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ss6tk")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxTexture_ss6tk")
+
+[node name="TransitionOverlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+z_index = 100
+
+[node name="text_show_character" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.106000006
+anchor_right = 0.5
+anchor_bottom = 0.106000006
+offset_left = -189.0
+offset_top = -25.688004
+offset_right = 197.0
+offset_bottom = 26.311996
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_ejn3r")
+theme_override_font_sizes/font_size = 50
+text = "Character Selection"
+
+[node name="back_button_character" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.082
+anchor_top = 0.093
+anchor_right = 0.082
+anchor_bottom = 0.093
+offset_left = -40.464005
+offset_top = -25.264
+offset_right = 40.535995
+offset_bottom = 24.736
+theme_override_fonts/font = ExtResource("1_ejn3r")
+theme_override_font_sizes/font_size = 25
+text = "Back"
+
+[node name="start_game_button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.512
+anchor_top = 0.88100004
+anchor_right = 0.512
+anchor_bottom = 0.88100004
+offset_left = -56.824036
+offset_top = -24.888
+offset_right = 56.175964
+offset_bottom = 25.112
+theme_override_fonts/font = ExtResource("1_ejn3r")
+theme_override_font_sizes/font_size = 25
+text = "Start Game"
+
+[connection signal="pressed" from="back_button_character" to="." method="_on_back_button_character_pressed"]
+[connection signal="pressed" from="start_game_button" to="." method="_on_start_game_button_pressed"]
