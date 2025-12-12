@@ -17,6 +17,19 @@ extends CharacterBody2D
 # Character health points
 @export var hp: int = 100
 
+# Acceleration (how fast to reach max speed)
+# Lower value = heavier feel (slower buildup)
+@export var acceleration: float = 1500.0
+
+# friction (how fast to stop)
+@export var friction: float = 1000.0
+
+# Run speed multiplier
+@export var run_speed_multiplier: float = 2.0
+
+# State
+var is_running: bool = false
+
 # Reference to the AnimatedSprite2D node
 # We use @onready to ensure the node is available before we access it
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
@@ -30,22 +43,30 @@ func _get_input_vector() -> Vector2:
 
 # --- Built-in Methods ---
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	# 1. Get movement direction from the virtual input method
 	var direction = _get_input_vector()
 	
-	# 2. Normalize direction to prevent faster diagonal movement
+	# 2. Apply Physics (Acceleration & Friction) using move_toward
 	if direction.length() > 0:
-		direction = direction.normalized()
+		# Determine target speed (Walk vs Run)
+		var current_speed = movement_speed
+		if is_running:
+			current_speed *= run_speed_multiplier
+			
+		# Normalize direction and accelerate towards target velocity
+		var target_velocity = direction.normalized() * current_speed
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
+	else:
+		# Apply friction to slow down to zero
+		velocity = velocity.move_toward(Vector2.ZERO, friction * delta)
 	
-	# 3. Apply velocity
-	velocity = direction * movement_speed
-	
-	# 4. Move the character using Godot's built-in physics engine
+	# 3. Move the character using Godot's built-in physics engine
 	move_and_slide()
 	
-	# 5. Handle animation and sprite orientation
-	_handle_animation(direction)
+	# 4. Handle animation and sprite orientation
+	# We pass velocity instead of direction to match visual movement to actual physics
+	_handle_animation(velocity)
 
 # --- Helper Methods ---
 

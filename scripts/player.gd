@@ -20,6 +20,13 @@ func _ready() -> void:
 
 # --- OOP: Overriding Base Method ---
 
+func _physics_process(delta: float) -> void:
+	# Check for Run input
+	is_running = Input.is_physical_key_pressed(KEY_SHIFT)
+	
+	# Call parent physics logic
+	super._physics_process(delta)
+
 # we override the base class method to provide specific input logic for the Player
 func _get_input_vector() -> Vector2:
 	var input_vector = Vector2.ZERO
@@ -45,7 +52,7 @@ func _initialize_character_data() -> void:
 	
 	# Apply stats from data
 	self.hp = data.hp
-	self.movement_speed = data.speed * 20 # Scale speed for gameplay feel
+	self.movement_speed = data.speed * 16 # Adjusted scale (was 12) for faster walk
 	
 	print("Initialized Player as: ", data.character_name)
 	

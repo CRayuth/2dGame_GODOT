@@ -15,8 +15,21 @@ var player_scene = preload("res://scenes/player.tscn")
 func _ready() -> void:
 	print("Gameplay Scene Started")
 	
+	# Generate a basic floor so movement is visible
+	_generate_floor()
+	
 	# Spawn the player character
 	_spawn_player()
+
+func _generate_floor() -> void:
+	if not tile_map:
+		return
+		
+	# Fill a 20x20 area with floor tiles (Source ID 0, Atlas Coords 0,0)
+	# This ensures the player has something to walk on and see
+	for x in range(-10, 20):
+		for y in range(-10, 20):
+			tile_map.set_cell(Vector2i(x, y), 0, Vector2i(0, 0))
 
 func _spawn_player() -> void:
 	if not player_scene:
