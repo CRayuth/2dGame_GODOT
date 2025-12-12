@@ -20,3 +20,4 @@ audio/default_bus_layout="res://audio/default_bus_layout.tres"
 
 SettingsManager="*res://scripts/settings_manager.gd"
 AudioManager="*res://scripts/audio_manager.gd"
+GameManager="*res://scripts/game_manager.gd"

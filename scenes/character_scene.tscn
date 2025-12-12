@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://8ego1w17xrgf"]
+[gd_scene load_steps=6 format=3 uid="uid://8ego1w17xrgf"]
 
 [ext_resource type="FontFile" uid="uid://c328hr4u7s466" path="res://fonts/Pixel Game.otf" id="1_ejn3r"]
 [ext_resource type="Script" uid="uid://bjmmcfv3j8h6y" path="res://scripts/character_scene.gd" id="1_ss6tk"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ss6tk"]
 texture = ExtResource("2_ewn66")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fs386"]
 
 [node name="Character_Scene" type="Control"]
 layout_mode = 3
@@ -26,6 +28,8 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_ss6tk")
 
 [node name="TransitionOverlay" type="ColorRect" parent="."]
+visible = false
+z_index = 100
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +38,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
-z_index = 100
 
 [node name="text_show_character" type="Label" parent="."]
 layout_mode = 1
@@ -68,6 +71,80 @@ theme_override_fonts/font = ExtResource("1_ejn3r")
 theme_override_font_sizes/font_size = 25
 text = "Back"
 
+[node name="CharacterSelectionContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49300003
+anchor_top = 0.555
+anchor_right = 0.49300003
+anchor_bottom = 0.555
+offset_left = -174.93604
+offset_top = -92.640015
+offset_right = 175.06396
+offset_bottom = 92.359985
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="WarriorContainer" type="VBoxContainer" parent="CharacterSelectionContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="WarriorFrame" type="Panel" parent="CharacterSelectionContainer/WarriorContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="WarriorSprite" type="AnimatedSprite2D" parent="CharacterSelectionContainer/WarriorContainer/WarriorFrame"]
+position = Vector2(77, 73)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fs386")
+
+[node name="WarriorButton" type="Button" parent="CharacterSelectionContainer/WarriorContainer/WarriorFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="WarriorLabel" type="Label" parent="CharacterSelectionContainer/WarriorContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ejn3r")
+theme_override_font_sizes/font_size = 24
+text = "Warrior"
+horizontal_alignment = 1
+
+[node name="BowmanContainer" type="VBoxContainer" parent="CharacterSelectionContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BowmanFrame" type="Panel" parent="CharacterSelectionContainer/BowmanContainer"]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+
+[node name="BowmanSprite" type="AnimatedSprite2D" parent="CharacterSelectionContainer/BowmanContainer/BowmanFrame"]
+position = Vector2(67, 77)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_fs386")
+frame_progress = 0.3324961
+
+[node name="BowmanButton" type="Button" parent="CharacterSelectionContainer/BowmanContainer/BowmanFrame"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="BowmanLabel" type="Label" parent="CharacterSelectionContainer/BowmanContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ejn3r")
+theme_override_font_sizes/font_size = 24
+text = "Bowman"
+horizontal_alignment = 1
+
 [node name="start_game_button" type="Button" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -81,7 +158,10 @@ offset_right = 56.175964
 offset_bottom = 25.112
 theme_override_fonts/font = ExtResource("1_ejn3r")
 theme_override_font_sizes/font_size = 25
+disabled = true
 text = "Start Game"
 
 [connection signal="pressed" from="back_button_character" to="." method="_on_back_button_character_pressed"]
+[connection signal="pressed" from="CharacterSelectionContainer/WarriorContainer/WarriorFrame/WarriorButton" to="." method="_on_warrior_button_pressed"]
+[connection signal="pressed" from="CharacterSelectionContainer/BowmanContainer/BowmanFrame/BowmanButton" to="." method="_on_bowman_button_pressed"]
 [connection signal="pressed" from="start_game_button" to="." method="_on_start_game_button_pressed"]
