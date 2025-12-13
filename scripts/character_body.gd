@@ -83,11 +83,14 @@ func _handle_stamina(delta: float, direction: Vector2) -> void:
 	var old_stamina = current_stamina
 	var is_moving = direction.length() > 0
 	
-	if is_running and is_moving and current_stamina > 0:
-		# Drain stamina when running and moving
-		current_stamina -= stamina_drain_rate * delta
+	if is_running and is_moving:
+		if current_stamina > 0:
+			# Drain stamina when running and moving
+			current_stamina -= stamina_drain_rate * delta
+		# If stamina is 0 but we are still holding shift, 
+		# we do NOT regen. We essentially stay at 0 (forcing Walk speed).
 	else:
-		# Regenerate stamina when not running or stationary
+		# Regenerate stamina only when not attempting to run
 		if current_stamina < max_stamina:
 			current_stamina += stamina_regen_rate * delta
 	
