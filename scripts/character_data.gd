@@ -45,4 +45,3 @@ static func get_character_data(character_type: GameManager.CharacterType) -> Cha
 			return get_bowman_data()
 		_:
 			return get_warrior_data()  # Default
-

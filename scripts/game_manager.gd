@@ -12,6 +12,14 @@ enum CharacterType {
 var selected_character: CharacterType = CharacterType.NONE  # Default to None
 var has_character_selected: bool = false
 
+enum ItemRarity {
+	COMMON,
+	UNCOMMON,
+	RARE,
+	EPIC,
+	LEGENDARY
+}
+
 func set_selected_character(character: CharacterType):
 	selected_character = character
 	has_character_selected = true

@@ -14,6 +14,8 @@ var player_scene = preload("res://scenes/player.tscn")
 var game_ui_scene = preload("res://scenes/game_ui.tscn")
 
 var game_ui_instance = null
+var inventory_ui_scene = preload("res://scenes/ui/inventory_ui.tscn")
+var inventory_ui_instance = null
 
 func _ready() -> void:
 	print("Gameplay Scene Started")
@@ -31,6 +33,17 @@ func _ready() -> void:
 	
 	# 3. Spawn Player
 	_spawn_player()
+	
+	# 4. Input Map Setup for Inventory
+	if not InputMap.has_action("toggle_inventory"):
+		InputMap.add_action("toggle_inventory")
+		var ev = InputEventKey.new()
+		ev.physical_keycode = KEY_I
+		InputMap.action_add_event("toggle_inventory", ev)
+	
+	# 5. Add Inventory UI
+	inventory_ui_instance = inventory_ui_scene.instantiate()
+	add_child(inventory_ui_instance)
 
 func _generate_floor() -> void:
 	if not tile_map:
