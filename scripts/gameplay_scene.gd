@@ -51,17 +51,42 @@ func _ready() -> void:
 func _add_debug_items() -> void:
 	if not inventory_ui_instance or not inventory_ui_instance.inventory_data:
 		return
+		
+	# 1. Weapon
 	var sword = ItemData.new()
-	sword.name = "Test Sword"
-	sword.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png")
+	sword.name = "Iron Sword"
+	sword.item_type = ItemData.ItemType.WEAPON
+	sword.attack_bonus = 10
+	sword.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png") # Placeholder
+	
+	# 2. Body Armor
+	var armor = ItemData.new()
+	armor.name = "Leather Tunic"
+	armor.item_type = ItemData.ItemType.BODY
+	armor.defense_bonus = 5
+	# No specific icon loaded, will appear blank or need placeholder
+	
+	# 3. Boots
+	var boots = ItemData.new()
+	boots.name = "Leather Boots"
+	boots.item_type = ItemData.ItemType.FEET
+	boots.defense_bonus = 2
+	
+	# 4. Shield
+	var shield = ItemData.new()
+	shield.name = "Wooden Shield"
+	shield.item_type = ItemData.ItemType.OFF_HAND
+	shield.defense_bonus = 4
+	
+	# 5. Potion
 	var potion = ItemData.new()
-	potion.name = "Test Potion"
-	# No icon for potion usually means null, let's just use sword icon again or null
-	# If null, drag won't start for potion. Let's assume potion has no icon is fine for now, 
-	# OR try to reuse sword icon to make it draggable.
-	potion.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png")
+	potion.name = "Health Potion"
+	potion.item_type = ItemData.ItemType.CONSUMABLE
 	
 	inventory_ui_instance.inventory_data.add_item(sword, 1)
+	inventory_ui_instance.inventory_data.add_item(armor, 1)
+	inventory_ui_instance.inventory_data.add_item(boots, 1)
+	inventory_ui_instance.inventory_data.add_item(shield, 1)
 	inventory_ui_instance.inventory_data.add_item(potion, 5)
 
 func _generate_floor() -> void:

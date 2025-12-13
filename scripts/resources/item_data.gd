@@ -16,6 +16,18 @@ class_name ItemData
 @export var icon: Texture2D
 @export var rarity: GameManager.ItemRarity = GameManager.ItemRarity.COMMON
 
+enum ItemType {
+	WEAPON,
+	HEAD,
+	BODY,
+	LEGS,
+	FEET,
+	OFF_HAND,
+	CONSUMABLE,
+	OTHER
+}
+@export var item_type: ItemType = ItemType.OTHER
+
 # Optional: Add stats for equipment
 @export var attack_bonus: int = 0
 @export var defense_bonus: int = 0

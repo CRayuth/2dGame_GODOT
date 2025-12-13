@@ -39,6 +39,8 @@ func _get_drag_data(_at_position: Vector2) -> Variant:
 		return null
 		
 	var data = { "index": slot_index }
+	if current_slot_data and current_slot_data.item_data:
+		data["item_type"] = current_slot_data.item_data.item_type
 	
 	# Create Preview
 	var preview = TextureRect.new()

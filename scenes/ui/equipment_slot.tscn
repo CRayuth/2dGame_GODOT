@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://invslot001"]
+[gd_scene load_steps=3 format=3 uid="uid://equipslot001"]
 
-[ext_resource type="Script" path="res://scripts/ui/inventory_slot.gd" id="1_script"]
+[ext_resource type="Script" path="res://scripts/ui/equipment_slot.gd" id="1_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_slot_bg"]
 bg_color = Color(0.35, 0.25, 0.2, 1)
@@ -14,8 +14,8 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[node name="InventorySlot" type="PanelContainer"]
-custom_minimum_size = Vector2(64, 64)
+[node name="EquipmentSlot" type="PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
 theme_override_styles/panel = SubResource("StyleBoxFlat_slot_bg")
 script = ExtResource("1_script")
 
@@ -32,6 +32,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="QuantityLabel" type="Label" parent="."]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
@@ -39,4 +40,3 @@ theme_override_font_sizes/font_size = 12
 text = ""
 horizontal_alignment = 2
 vertical_alignment = 2
-visible = false

@@ -2,14 +2,15 @@
 
 [ext_resource type="Script" uid="uid://c6oi4eklwy0mx" path="res://scripts/ui/inventory_ui.gd" id="1_script"]
 [ext_resource type="FontFile" uid="uid://c328hr4u7s466" path="res://fonts/Pixel Game.otf" id="2_font"]
+[ext_resource type="PackedScene" uid="uid://equipslot001" path="res://scenes/ui/equipment_slot.tscn" id="3_slot"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book_bg"]
-bg_color = Color(0.36, 0.25, 0.2, 1)
+bg_color = Color(0.55, 0.4, 0.28, 1)
 border_width_left = 6
 border_width_top = 4
 border_width_right = 6
 border_width_bottom = 6
-border_color = Color(0.2, 0.14, 0.1, 1)
+border_color = Color(0.4, 0.28, 0.18, 1)
 corner_radius_top_left = 4
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -56,22 +57,42 @@ size_flags_horizontal = 3
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="PortraitPlaceholder" type="ColorRect" parent="BookPanel/PagesContainer/LeftPage/CharacterSection"]
+[node name="EquipmentLayout" type="HBoxContainer" parent="BookPanel/PagesContainer/LeftPage/CharacterSection"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -60.0
-offset_top = -60.0
-offset_right = 60.0
-offset_bottom = 60.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="EquipSlots" type="VBoxContainer" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 5
+
+[node name="HeadSlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlots" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "Head"
+accepted_type = 1
+
+[node name="BodySlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlots" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "Body"
+accepted_type = 2
+
+[node name="MainHandSlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlots" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "MainHand"
+accepted_type = 0
+
+[node name="PortraitPlaceholder" type="ColorRect" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
 color = Color(0.2, 0.2, 0.2, 0.5)
 
-[node name="Label" type="Label" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/PortraitPlaceholder"]
+[node name="Label" type="Label" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/PortraitPlaceholder"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -84,12 +105,25 @@ Portrait"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EquipLabel" type="Label" parent="BookPanel/PagesContainer/LeftPage/CharacterSection"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-theme_override_fonts/font = ExtResource("2_font")
-text = "Equipment Slots (TBD)"
+[node name="EquipSlotsRight" type="VBoxContainer" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 5
+
+[node name="LegsSlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlotsRight" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "Legs"
+accepted_type = 3
+
+[node name="FeetSlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlotsRight" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "Feet"
+accepted_type = 4
+
+[node name="OffHandSlot" parent="BookPanel/PagesContainer/LeftPage/CharacterSection/EquipmentLayout/EquipSlotsRight" instance=ExtResource("3_slot")]
+layout_mode = 2
+equip_slot_name = "OffHand"
+accepted_type = 5
 
 [node name="InventoryGrid" type="GridContainer" parent="BookPanel/PagesContainer/LeftPage"]
 layout_mode = 2
