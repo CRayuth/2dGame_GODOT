@@ -10,6 +10,7 @@ class_name CharacterData
 @export var attack: int
 @export var defense: int
 @export var speed: int
+@export var stamina: int # New Stat
 @export var description: String
 
 static func get_warrior_data() -> CharacterData:
@@ -17,6 +18,7 @@ static func get_warrior_data() -> CharacterData:
 	warrior.character_name = "Warrior"
 	warrior.character_type = GameManager.CharacterType.WARRIOR
 	warrior.hp = 100
+	warrior.stamina = 100 # Warrior has standard stamina
 	warrior.attack = 15
 	warrior.defense = 10
 	warrior.speed = 5
@@ -28,6 +30,7 @@ static func get_bowman_data() -> CharacterData:
 	bowman.character_name = "Bowman"
 	bowman.character_type = GameManager.CharacterType.BOWMAN
 	bowman.hp = 80
+	bowman.stamina = 120 # Bowman has more stamina for kiting
 	bowman.attack = 18
 	bowman.defense = 6
 	bowman.speed = 10

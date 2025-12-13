@@ -1,5 +1,6 @@
 extends Control
 @onready var main_buttons: VBoxContainer = $MainButtons
+@onready var continue_button: Button = $MainButtons/continue_game
 @onready var setting_background: Panel = $Setting_Background
 @onready var music_control: HSlider = $Setting_Background/MusicControl
 @onready var music_mute_button: Button = $Setting_Background/MusicMuteButton
@@ -24,6 +25,13 @@ func _ready():
 	if AudioManager != null:
 		var music_stream = load("res://audio/background_start_sound.mp3")
 		AudioManager.play_music(music_stream, true)
+	
+	# OOP Interaction: Check Persistence Layer state
+	# We rely on GameManager (Singleton) to tell us if a save exists
+	if GameManager.has_save_file():
+		continue_button.disabled = false
+	else:
+		continue_button.disabled = true
 
 func update_mute_buttons():
 	if SettingsManager != null:
@@ -65,7 +73,14 @@ func fade_in_scene(duration: float = 0.3):
 
 func _on_continue_game_pressed() -> void:
 	print("Continue game")
-	pass # Replace with function body.
+	
+	# OOP Pattern: Delegation
+	# The UI delegates the loading logic to the GameManager.
+	if GameManager.load_game():
+		# State restored, transition to gameplay
+		transition_to_scene("res://scenes/gameplay_scene.tscn")
+	else:
+		push_error("Failed to load game, but button was enabled!")
 
 
 func _on_setting_game_pressed() -> void:

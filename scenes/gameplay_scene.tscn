@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b8x7y201w4v5"]
+[gd_scene load_steps=5 format=3 uid="uid://b8x7y201w4v5"]
 
-[ext_resource type="Script" path="res://scripts/gameplay_scene.gd" id="1_gameplay"]
-[ext_resource type="Texture2D" uid="uid://d3x8q2y1w4v5" path="res://assets/pixel2d/Environment/Tilesets/Floors_Tiles.png" id="2_tiles"]
+[ext_resource type="Script" uid="uid://ded6toqy01mux" path="res://scripts/gameplay_scene.gd" id="1_gameplay"]
+[ext_resource type="Texture2D" uid="uid://dhp7g7ap2suad" path="res://assets/pixel2d/Environment/Tilesets/Floors_Tiles.png" id="2_tiles"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_floors"]
 texture = ExtResource("2_tiles")

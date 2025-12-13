@@ -180,6 +180,11 @@ func _on_bowman_button_pressed():
 func _on_start_game_button_pressed() -> void:
 	if not start_game_button.disabled:
 		print("Starting game with: ", GameManager.get_selected_character_name())
+		
+		# OOP: Persist State
+		# Save specific character choice to database before entering game
+		GameManager.save_game()
+		
 		transition_to_scene("res://scenes/gameplay_scene.tscn")
 
 func _on_back_button_character_pressed():

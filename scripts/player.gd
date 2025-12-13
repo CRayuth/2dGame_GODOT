@@ -52,6 +52,9 @@ func _initialize_character_data() -> void:
 	
 	# Apply stats from data
 	self.hp = data.hp
+	self.max_hp = data.hp # Set max HP for UI
+	self.max_stamina = data.stamina # Set max Stamina
+	self.current_stamina = data.stamina # Start full
 	self.movement_speed = data.speed * 16 # Adjusted scale (was 12) for faster walk
 	
 	print("Initialized Player as: ", data.character_name)

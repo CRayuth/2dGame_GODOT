@@ -9,16 +9,27 @@ extends Node2D
 @onready var tile_map: TileMapLayer = $TileMapLayer
 @onready var spawn_point: Marker2D = $SpawnPoint
 
-# Preload the player scene to instantiate it
+# Preload scenes
 var player_scene = preload("res://scenes/player.tscn")
+var game_ui_scene = preload("res://scenes/game_ui.tscn")
+
+var game_ui_instance = null
 
 func _ready() -> void:
 	print("Gameplay Scene Started")
 	
-	# Generate a basic floor so movement is visible
+	# 1. Generate Floor
 	_generate_floor()
 	
-	# Spawn the player character
+	# 2. Find or Create UI
+	# We check if it exists in case we add it manually to the scene later
+	if has_node("GameUI"):
+		game_ui_instance = $GameUI
+	else:
+		game_ui_instance = game_ui_scene.instantiate()
+		add_child(game_ui_instance)
+	
+	# 3. Spawn Player
 	_spawn_player()
 
 func _generate_floor() -> void:
@@ -49,6 +60,31 @@ func _spawn_player() -> void:
 	# Add player to the scene tree
 	add_child(player_instance)
 	print("Player spawned at: ", player_instance.position)
+	
+	# --- OOP: Connect Signals (Observer Pattern) ---
+	# Connect Player (Model) -> UI (View)
+	if game_ui_instance and player_instance.has_method("_get_input_vector"): # Check if valid player
+		# We need to wait a frame for the player to initialize its data (in its _ready)
+		# But since we are instantiating it, its _ready runs when added to child.
+		# However, we can manually setup the UI with initial values if we access the player's data.
+		# Since player loads data in _ready, we can trust it will have values soon.
+		
+		# Connect Signals
+		player_instance.health_changed.connect(game_ui_instance.update_health)
+		player_instance.stamina_changed.connect(game_ui_instance.update_stamina)
+		
+		# Initial Setup of UI
+		# We cast to Player to access specific properties safely
+		var p = player_instance
+		if "max_hp" in p and "max_stamina" in p:
+			# Get character name from GameManager
+			var char_name = "Character"
+			if GameManager.selected_character == GameManager.CharacterType.WARRIOR:
+				char_name = "Warrior"
+			elif GameManager.selected_character == GameManager.CharacterType.BOWMAN:
+				char_name = "Bowman"
+				
+			game_ui_instance.setup(char_name, p.max_hp, p.max_stamina)
 
 func _process(_delta: float) -> void:
 	# Check for exit (Escape key) to return to menu
