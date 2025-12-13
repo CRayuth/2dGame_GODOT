@@ -44,6 +44,25 @@ func _ready() -> void:
 	# 5. Add Inventory UI
 	inventory_ui_instance = inventory_ui_scene.instantiate()
 	add_child(inventory_ui_instance)
+	
+	# --- DEBUG: Restore Test Items for Drag Check ---
+	_add_debug_items()
+
+func _add_debug_items() -> void:
+	if not inventory_ui_instance or not inventory_ui_instance.inventory_data:
+		return
+	var sword = ItemData.new()
+	sword.name = "Test Sword"
+	sword.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png")
+	var potion = ItemData.new()
+	potion.name = "Test Potion"
+	# No icon for potion usually means null, let's just use sword icon again or null
+	# If null, drag won't start for potion. Let's assume potion has no icon is fine for now, 
+	# OR try to reuse sword icon to make it draggable.
+	potion.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png")
+	
+	inventory_ui_instance.inventory_data.add_item(sword, 1)
+	inventory_ui_instance.inventory_data.add_item(potion, 5)
 
 func _generate_floor() -> void:
 	if not tile_map:

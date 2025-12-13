@@ -48,3 +48,14 @@ func add_item(item: ItemData, quantity: int = 1) -> bool:
 			
 	# Inventory full
 	return false
+
+func swap_slots(index1: int, index2: int) -> void:
+	if index1 < 0 or index1 >= slots.size() or index2 < 0 or index2 >= slots.size():
+		return
+	
+	var temp = slots[index1]
+	slots[index1] = slots[index2]
+	slots[index2] = temp
+	
+	inventory_updated.emit(index1)
+	inventory_updated.emit(index2)
