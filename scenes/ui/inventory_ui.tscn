@@ -5,15 +5,18 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_book_bg"]
 bg_color = Color(0.36, 0.25, 0.2, 1)
-border_width_left = 4
+border_width_left = 6
 border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
+border_width_right = 6
+border_width_bottom = 6
 border_color = Color(0.2, 0.14, 0.1, 1)
-corner_radius_top_left = 8
+corner_radius_top_left = 4
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+corner_radius_bottom_left = 4
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 10
+shadow_offset = Vector2(5, 5)
 
 [node name="InventoryUI" type="CanvasLayer"]
 script = ExtResource("1_script")
