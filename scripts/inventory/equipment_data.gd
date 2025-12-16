@@ -39,6 +39,20 @@ func equip_item(item: ItemData, slot_name: String) -> ItemData:
 	equipment_updated.emit(slot_name)
 	return previous_item
 
+func get_total_attack_bonus() -> int:
+	var total = 0
+	for slot in [head_slot, body_slot, main_hand_slot, legs_slot, feet_slot, off_hand_slot]:
+		if slot.item_data:
+			total += slot.item_data.attack_bonus
+	return total
+
+func get_total_defense_bonus() -> int:
+	var total = 0
+	for slot in [head_slot, body_slot, main_hand_slot, legs_slot, feet_slot, off_hand_slot]:
+		if slot.item_data:
+			total += slot.item_data.defense_bonus
+	return total
+
 func unequip_item(slot_name: String) -> ItemData:
 	var target_slot: SlotData
 	match slot_name:

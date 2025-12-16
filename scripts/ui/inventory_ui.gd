@@ -11,7 +11,6 @@ class_name InventoryUI
 @onready var grid_container: GridContainer = $BookPanel/PagesContainer/LeftPage/InventoryGrid
 
 # Stat References (Right Page)
-# Stat References (Right Page)
 @onready var stats_list: VBoxContainer = $BookPanel/PagesContainer/RightPage/StatsList
 @onready var hero_name_label: Label = $BookPanel/PagesContainer/RightPage/Header/NameLabel
 @onready var book_panel: Panel = $BookPanel
@@ -64,7 +63,7 @@ func _process(_delta: float) -> void:
 	if tooltip_instance and tooltip_instance.visible:
 		tooltip_instance.update_position(book_panel.get_global_mouse_position())
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("toggle_inventory"): 
 		if visible and book_panel.modulate.a > 0.9: # Check if open
 			animate_close()
@@ -162,7 +161,7 @@ func update_equipment_slots(slot_name: String) -> void:
 func _on_slot_clicked(index: int) -> void:
 	var slot_data = inventory_data.slots[index]
 	if slot_data and slot_data.item_data:
-		print("Clicked item: ", slot_data.item_data.name)
+		pass
 
 func _update_character_info() -> void:
 	if hero_name_label:
@@ -178,29 +177,27 @@ func _cache_stat_labels() -> void:
 	if agi_row: stat_labels["Agility"] = agi_row.get_node("Value")
 
 func _update_stats() -> void:
-	# Base Stats
-	var strength = 10
-	var agility = 8
+	# 1. Get Base Stats from selected character Data
+	var char_type = GameManager.get_selected_character()
+	var char_data = CharacterData.get_character_data(char_type)
 	
-	# Add Bonuses
-	if equipment_data.main_hand_slot.item_data:
-		strength += equipment_data.main_hand_slot.item_data.attack_bonus
+	var base_attack = char_data.attack
+	var base_defense = char_data.defense
 	
-	if equipment_data.body_slot.item_data:
-		agility += equipment_data.body_slot.item_data.defense_bonus
+	# 2. Get Equipment Bonuses (OOP: Ask the expert)
+	var bonus_attack = equipment_data.get_total_attack_bonus()
+	var bonus_defense = equipment_data.get_total_defense_bonus()
 	
-	if equipment_data.legs_slot.item_data:
-		agility += equipment_data.legs_slot.item_data.defense_bonus
+	# 3. Calculate Totals
+	var total_attack = base_attack + bonus_attack
+	var total_defense = base_defense + bonus_defense
 		
-	if equipment_data.feet_slot.item_data:
-		agility += equipment_data.feet_slot.item_data.defense_bonus # Boots usually give speed/agi
-	
-	if equipment_data.off_hand_slot.item_data:
-		strength += equipment_data.off_hand_slot.item_data.defense_bonus # Shield
-		
-	# Update UI
-	if stat_labels.has("Strength"): stat_labels["Strength"].text = str(strength)
-	if stat_labels.has("Agility"): stat_labels["Agility"].text = str(agility)
+	# 4. Update UI Labels
+	# specific mapping: Strength -> Attack, Agility -> Defense
+	if stat_labels.has("Strength"): 
+		stat_labels["Strength"].text = str(total_attack)
+	if stat_labels.has("Agility"): 
+		stat_labels["Agility"].text = str(total_defense)
 
 func _on_show_tooltip(slot_data: SlotData) -> void:
 	if slot_data and slot_data.item_data:

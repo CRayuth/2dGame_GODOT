@@ -46,7 +46,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_new_game_pressed() -> void:
-	print("Start new game")
 	transition_to_scene("res://scenes/character_scene.tscn")
 	pass # Replace with function body.
 
@@ -70,10 +69,7 @@ func fade_in_scene(duration: float = 0.3):
 		await tween.finished
 		transition_overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
-
 func _on_continue_game_pressed() -> void:
-	print("Continue game")
-	
 	# OOP Pattern: Delegation
 	# The UI delegates the loading logic to the GameManager.
 	if GameManager.load_game():
@@ -84,7 +80,6 @@ func _on_continue_game_pressed() -> void:
 
 
 func _on_setting_game_pressed() -> void:
-	print("Setting")
 	# this is to open the setting background and close the main button
 	main_buttons.visible = false
 	setting_background.visible = true

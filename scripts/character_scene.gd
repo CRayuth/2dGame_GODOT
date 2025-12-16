@@ -169,18 +169,14 @@ func _on_warrior_button_pressed():
 	selected_character = GameManager.CharacterType.WARRIOR
 	GameManager.set_selected_character(GameManager.CharacterType.WARRIOR)
 	update_character_frames()
-	print("Warrior selected!")
 
 func _on_bowman_button_pressed():
 	selected_character = GameManager.CharacterType.BOWMAN
 	GameManager.set_selected_character(GameManager.CharacterType.BOWMAN)
 	update_character_frames()
-	print("Bowman selected!")
 
 func _on_start_game_button_pressed() -> void:
 	if not start_game_button.disabled:
-		print("Starting game with: ", GameManager.get_selected_character_name())
-		
 		# OOP: Persist State
 		# Save specific character choice to database before entering game
 		GameManager.save_game()

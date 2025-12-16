@@ -27,10 +27,6 @@ func _gui_input(event: InputEvent) -> void:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 			slot_clicked.emit(slot_index)
 
-
-
-# --- Drag and Drop ---
-
 # --- Drag and Drop ---
 
 func _get_drag_data(_at_position: Vector2) -> Variant:

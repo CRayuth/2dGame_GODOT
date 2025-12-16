@@ -28,7 +28,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_fs386")
 
 [node name="TransitionOverlay" type="ColorRect" parent="."]
-visible = false
 z_index = 100
 layout_mode = 1
 anchors_preset = 15

@@ -1,15 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnw1xt8jh0mp5"]
+[gd_scene load_steps=9 format=3 uid="uid://cnw1xt8jh0mp5"]
 
 [ext_resource type="Texture2D" uid="uid://bywnpqujaf4qw" path="res://images/background.jpg" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://c41pcshor8tls" path="res://scripts/main_menu.gd" id="1_fu7sn"]
 [ext_resource type="FontFile" uid="uid://c328hr4u7s466" path="res://fonts/Pixel Game.otf" id="2_7vrkn"]
 [ext_resource type="Script" uid="uid://cgv4wddd5x62d" path="res://scripts/audio_control.gd" id="5_glbon"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_transition"]
-bg_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7vrkn"]
 texture = ExtResource("1_06t4h")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_wu84c"]
+color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_jix8l"]
 color = Color(1, 1, 1, 1)
@@ -57,6 +57,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_7vrkn")
 theme_override_font_sizes/font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxLine_wu84c")
 text = "New Game"
 
 [node name="continue_game" type="Button" parent="MainButtons"]
@@ -101,6 +102,8 @@ theme_override_font_sizes/font_size = 100
 text = "Dungeon Quest"
 
 [node name="TransitionOverlay" type="ColorRect" parent="."]
+visible = false
+z_index = 100
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -109,10 +112,8 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 0)
-z_index = 100
 
 [node name="Setting_Background" type="Panel" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

@@ -23,7 +23,7 @@ enum ItemRarity {
 func set_selected_character(character: CharacterType):
 	selected_character = character
 	has_character_selected = true
-	print("Character selected: ", CharacterType.keys()[character])
+	print("Character selected: ", CharacterType.find_key(character))
 
 func get_selected_character() -> CharacterType:
 	return selected_character

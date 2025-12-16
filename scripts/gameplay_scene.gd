@@ -17,6 +17,10 @@ var game_ui_instance = null
 var inventory_ui_scene = preload("res://scenes/ui/inventory_ui.tscn")
 var inventory_ui_instance = null
 
+var chest_scene = preload("res://scenes/chest.tscn")
+var chest_ui_scene = preload("res://scenes/ui/chest_ui.tscn")
+var chest_ui_instance = null
+
 func _ready() -> void:
 	print("Gameplay Scene Started")
 	
@@ -31,63 +35,40 @@ func _ready() -> void:
 		game_ui_instance = game_ui_scene.instantiate()
 		add_child(game_ui_instance)
 	
-	# 3. Spawn Player
-	_spawn_player()
-	
-	# 4. Input Map Setup for Inventory
-	if not InputMap.has_action("toggle_inventory"):
-		InputMap.add_action("toggle_inventory")
-		var ev = InputEventKey.new()
-		ev.physical_keycode = KEY_I
-		InputMap.action_add_event("toggle_inventory", ev)
-	
-	# 5. Add Inventory UI
+	# 3. Add Inventory UI (Add before Player so Player gets input priority)
 	inventory_ui_instance = inventory_ui_scene.instantiate()
 	add_child(inventory_ui_instance)
 	
-	# --- DEBUG: Restore Test Items for Drag Check ---
-	_add_debug_items()
-
-func _add_debug_items() -> void:
-	if not inventory_ui_instance or not inventory_ui_instance.inventory_data:
-		return
+	# 4. Spawn Player (Last added handles input first)
+	_spawn_player()
+	
+	# 5. Input Map Setup for Inventory
+	if not InputMap.has_action("toggle_inventory"):
+		InputMap.add_action("toggle_inventory")
+		var ev = InputEventKey.new()
+		ev.physical_keycode = KEY_E
+		InputMap.action_add_event("toggle_inventory", ev)
+	
+	# 6. Interact Input
+	if not InputMap.has_action("interact"):
+		InputMap.add_action("interact")
+		var ev = InputEventKey.new()
+		ev.physical_keycode = KEY_E
+		InputMap.action_add_event("interact", ev)
 		
-	# 1. Weapon
-	var sword = ItemData.new()
-	sword.name = "Iron Sword"
-	sword.item_type = ItemData.ItemType.WEAPON
-	sword.attack_bonus = 10
-	sword.icon = load("res://assets/pixel2d/Weapons/Wood/Wood.png") # Placeholder
+	# 7. Spawn Test Chest
+	var chest = chest_scene.instantiate()
+	chest.position = Vector2(650, 324) # Near player spawn
+	add_child(chest)
+	# Connect signal
+	if chest.has_signal("chest_opened"):
+		chest.chest_opened.connect(_on_chest_opened)
+		
+	# 8. Add Chest UI
+	chest_ui_instance = chest_ui_scene.instantiate()
+	add_child(chest_ui_instance)
 	
-	# 2. Body Armor
-	var armor = ItemData.new()
-	armor.name = "Leather Tunic"
-	armor.item_type = ItemData.ItemType.BODY
-	armor.defense_bonus = 5
-	# No specific icon loaded, will appear blank or need placeholder
-	
-	# 3. Boots
-	var boots = ItemData.new()
-	boots.name = "Leather Boots"
-	boots.item_type = ItemData.ItemType.FEET
-	boots.defense_bonus = 2
-	
-	# 4. Shield
-	var shield = ItemData.new()
-	shield.name = "Wooden Shield"
-	shield.item_type = ItemData.ItemType.OFF_HAND
-	shield.defense_bonus = 4
-	
-	# 5. Potion
-	var potion = ItemData.new()
-	potion.name = "Health Potion"
-	potion.item_type = ItemData.ItemType.CONSUMABLE
-	
-	inventory_ui_instance.inventory_data.add_item(sword, 1)
-	inventory_ui_instance.inventory_data.add_item(armor, 1)
-	inventory_ui_instance.inventory_data.add_item(boots, 1)
-	inventory_ui_instance.inventory_data.add_item(shield, 1)
-	inventory_ui_instance.inventory_data.add_item(potion, 5)
+
 
 func _generate_floor() -> void:
 	if not tile_map:
@@ -150,3 +131,15 @@ func _process(_delta: float) -> void:
 
 func _return_to_menu() -> void:
 	get_tree().change_scene_to_file("res://scenes/main_menu.tscn")
+
+func _on_chest_opened(chest: Chest) -> void:
+	if chest_ui_instance and inventory_ui_instance:
+		# Use the player's inventory data from the existing UI
+		chest_ui_instance.open(chest, inventory_ui_instance.inventory_data)
+		
+		# DEBUG: Ensure player has items to show
+		if inventory_ui_instance.inventory_data.slots[0].item_data == null:
+			var item = ItemData.new()
+			item.name = "Player Sword"
+			item.icon = load("res://assets/pixel2d/Environment/Structures/Stations/Anvil/Anvil.png")
+			inventory_ui_instance.inventory_data.add_item(item, 1)
